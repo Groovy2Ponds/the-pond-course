@@ -1,0 +1,505 @@
+import { useState } from "react";
+
+const YELLOW = "#F5C518";
+const DARK = "#0D0D0D";
+const GRAY = "#888";
+const MID = "#444";
+const LIGHT = "#F8F8F6";
+const WHITE = "#ffffff";
+
+const sections = [
+  {
+    number: "01",
+    title: "THE HOOK",
+    technique: "Confusion → Curiosity → Click",
+    introCard: "This is where you decided to keep reading.",
+    exhibit: {
+      label: "FROM THE PAGE — HEADLINE",
+      quote: "How To Sell A Course About Selling Courses: A Step By Step Course For People Who Buy Step By Step Courses About Selling Courses.",
+      nodded: null,
+    },
+    flow: [
+      { label: "Ridiculous headline", sub: "says the same thing 4 times" },
+      { label: "Confusion", sub: "is this serious?" },
+      { label: "Curiosity", sub: "only one way to find out" },
+      { label: "You keep reading", sub: "they got you" },
+    ],
+    annotation: "The headline doesn't hook you with a promise or fools gold. (Shout out McConaughey.) It hooks you with a title that gets you to read it more than once. One that captures your imagination. Makes you wonder. It creates play.\n\n\tIt Creates interest, possibility, curiosity!\n\n\tYou must sink energies and turn potential to kinetic. Or something. I don't know. It worked on you. Anyways.\n\n'Want in?' is the turn. Two words that move you from customer to insider. Nobody clicks a button to be sold something. They click to join something. That reframe is doing a lot of work here.",
+  },
+  {
+    number: "02",
+    title: "THE ORIGIN",
+    technique: "Honest Flaw = Trust",
+    introCard: "This is where some backstory does some heavy lifting.",
+    exhibit: {
+      label: "FROM THE PAGE — THE ORIGIN",
+      quote: "At twenty one I told my parents I was leaving. They didn't approve. I left the following morning. For the better part of a decade I worked ranches in Montana, guided fishing trips in the Gulf, and walked trails as a park ranger in places most people only see on calendars. My address, for nine years and eleven months, was my car.\n\nI was motivated, guilty, and jealous of men my age who had already built something.",
+      nodded: null,
+    },
+    flow: [
+      { label: "Specific details", sub: "Montana, 9yrs 11mo, Subaru" },
+      { label: "Feels like memory", sub: "not like marketing" },
+      { label: "Admits the flaw", sub: "guilty. jealous. motivated." },
+      { label: "You trust him more", sub: "not less" },
+    ],
+    annotation: "Most sick ass gurus lead with their Lambos and Miami apartment balcony videos. They try to convince you by showing you an envious lifestyle. Which let's be honest, Lambos are sick. The problem is the rental Lambos are just more obvious now.\n\nThe ones who show up honest and a little vulnerable don't just seem more relatable. They get trusted faster. Sure it's not the best for aura points. But it makes the distance between you and them feel a lot smaller. That promise feels possible, not empty. You can glimpse yourself as the hero of the story.\n\nThink Gladiator, Good Will Hunting, The Pursuit of Happyness, Pirates of the Caribbean: The Curse of the Black Pearl.\n\n\tShrek 1.\n\n\tThey are all the hero's journey. Joseph Campbell wrote the book on this. It's called The Hero With a Thousand Faces.\n\nPS Specificity is credibility. 'Nine years and eleven months' hits differently than 'almost a decade.' One sounds like a memory. The other sounds like a pitch.",
+  },
+  {
+    number: "03",
+    title: "THE CREDENTIALS",
+    technique: "Format Before Content",
+    introCard: "This is where you found credibility.",
+    exhibit: {
+      label: "FROM THE PAGE — TRACK RECORD",
+      quote: "How To Get Unstuck From A Ditch That Didn't Even Look That Big — 31 students. $2,100 in revenue. My best seller until now.",
+      nodded: null,
+    },
+    flow: [
+      { label: "Format = Validity", sub: "italic title, clean results" },
+      { label: "Course names = Real", sub: "specific enough to believe" },
+      { label: "Real = Achievable", sub: "$2,100 — you did the math" },
+      { label: "You laugh = Trust", sub: "guard drops" },
+    ],
+    annotation: "The course name is silly and relatable. My infallible self has done it more than once. That specificity hits a note polished marketing never does. Your brain reads the room before it reads the words. Italic title. Clean results. Looks like a track record. Filed under credible. Done. Before you read a single number.\n\n$2,100 from 31 people. Now imagine 310. At $97 a course. That's $30,070. You just did that math. You couldn't help it. Worth a thought at least.\n\nHumor is the last thing. People like who they think are funny and say yes a lot more easily. Everyone already knows this. It just works better when you don't announce it to your prospective audience. Like you. oops.",
+  },
+  {
+    number: "04",
+    title: "THE PROBLEM",
+    technique: "Being Seen vs. Being Sold To",
+    introCard: "This is where you realized you weren't alone in this.",
+    exhibit: {
+      label: "FROM THE PAGE — PROBLEM SECTION",
+      quote: "You've tried the dropshipping course or the BRRRR method masterclass or at least one thing about trading something you still don't fully understand. You even considered joining The Real World.\n\nAnd even so, you still have a notes app that knows more about your ambitions than your closest friends and a YouTube watch later playlist that holds what you believe to be your way out.",
+      nodded: "a notes app that knows more about your ambitions than your closest friends",
+    },
+    flow: [
+      { label: "Names your exact life", sub: "BRRRR, dropshipping, The Real World" },
+      { label: "Doesn't ask — states", sub: "you nodded. that's mirroring." },
+      { label: "You feel understood", sub: "not targeted" },
+      { label: "You trust the page", sub: "it already knows you" },
+    ],
+    annotation: "The notes app line works because it's specific enough to be true and universal enough to apply to almost anyone reading this. Could be your iPhone's Notes app. Could be your OneNote. Could be a to do list in your head. You know where yours is.\n\nThe YouTube playlist works for the same reason. Those videos aren't going anywhere and you know it. You'll get to them. promise.\n\nAnd look. The Andrew Tate thing. Nobody's proud of it. But guys would be lying if they said they never thought about it. Or maybe even visited the website. Clicked around a little. Considered the matrix. That's not a character flaw. That's just what happens when there's a lot of noise coming at you and not enough direction on how to actually get anywhere.\n\nThis section works because it mocks common get rich quick schemes we've all heard of. Or maybe even looked into. No judgment.\n\nAnd now you're in my GRQS. Which I must say I do find a little tiny bit funny.",
+  },
+  {
+    number: "05",
+    title: "SOCIAL PROOF",
+    technique: "The Transparent Fake",
+    introCard: "This was silly, wasn't it.",
+    exhibit: {
+      label: "FROM THE PAGE — TESTIMONIALS",
+      quote: "\"$3,267 profited from my course on How To Sell A Gator In 10 Days. Saint showed me how.\" — Cane Blaze, Hooker Road University",
+      nodded: null,
+    },
+    flow: [
+      { label: "Clearly fake names & numbers", sub: "Cane Blaze. Lhai SaBeouf." },
+      { label: "It's silly. You laugh.", sub: "page seems self-aware" },
+      { label: "Interested. Wondering.", sub: "where is this going?" },
+      { label: "You bought it.", sub: "already moving down the pipeline" },
+    ],
+    annotation: "Standard social proof is ignored because everyone knows it's curated. Five star reviews from people you've never heard of saying things that are too good to be true. You scroll past it every day.\n\nThis sidesteps that entirely by being just fake enough to be funny and just real enough to make you wonder. Cane Blaze. Hooker Road University. You laughed. And when you laughed you stopped evaluating and started wondering. Where is this going? Is any of this real? Could Cane Blaze actually exist somewhere?\n\nThat curiosity is the whole move. Silly enough to be interesting. Fun enough to keep you reading. And by the time you're having fun you're already moving further down the pipeline. Conscious or not.\n\nNote the number: $3,267. Not $3,000. Specific numbers feel like memory. Round numbers feel invented.",
+  },
+  {
+    number: "06",
+    title: "THE OFFER STACK",
+    technique: "The Anchor",
+    introCard: "This is where an arbitrary price was assigned for you.",
+    exhibit: {
+      label: "FROM THE PAGE — OFFER",
+      quote: "Total Value: $938. Today: $97.",
+      nodded: null,
+    },
+    flow: [
+      { label: "Fictional $938 anchor", sub: "presented as established fact" },
+      { label: "$97 real price", sub: "looks like generosity" },
+      { label: "Bonuses 'in development'", sub: "disclosed. same font. invisible." },
+      { label: "Brain accepted the frame", sub: "before you could object" },
+    ],
+    annotation: "Anchoring is one of the most studied and documented effects in behavioral economics. And it works on people who know it's happening. You probably did.\n\nThe first number you see becomes the reference point. $938 total value. You never agreed to that number. It was just presented as fact and your brain filed it accordingly. Everything after that gets measured against it.\n\nAnd the value itself? It's courses that haven't been built yet. So the $938 is a reference point built on nothing. Which is impressive if you think about it.\n\nFor $97 you felt like you got a great deal. And if you clicked off and came back at $47 you felt like you got away with something. Either way you bought the course. And I made it having never built a course before. So.",
+  },
+  {
+    number: "07",
+    title: "THE TIMER",
+    technique: "Transparent Urgency",
+    introCard: "This is where you felt urgency about a course.",
+    exhibit: {
+      label: "FROM THE PAGE — COUNTDOWN",
+      quote: "This timer is here because it works. I respect you enough to tell you that. Not enough to tell you if I'm actually going to change the price.",
+      nodded: null,
+    },
+    flow: [
+      { label: "Timer counting down", sub: "urgency — oldest trick there is" },
+      { label: "You might lose something", sub: "even if you just got here" },
+      { label: "Timer helps decide for you", sub: "leaving feels like a choice" },
+      { label: "You knew. You bought it.", sub: "anyway" },
+    ],
+    annotation: "You knew what the timer was the second you saw it. You've seen one before.\n\nHere's what it's actually doing. Losing something feels about twice as bad as gaining the same thing feels good. That's not an opinion, that's behavioral economics. The timer makes you feel like you're about to lose something. Even if what you're losing is a price on a course you found five minutes ago.\n\nThe second thing it does is remove the 'I'll think about it' option. No timer means you can leave and come back. A timer means leaving feels like a decision.\n\nAnd the third thing, the most interesting thing, is that it works even when you know exactly what it's doing. Which you did. And here you are.",
+  },
+  {
+    number: "08",
+    title: "THE PRICE",
+    technique: "Three Prices, One Product",
+    introCard: "This is where you felt like you got a deal.",
+    exhibit: {
+      label: "FROM THE PAGE — PRICING",
+      quote: "The person who buys at $97 feels like they got a deal. The person who buys at $47 feels like they outsmarted the page. All three are wrong. I got all of them.",
+      nodded: null,
+    },
+    flow: [
+      { label: "$197 (crossed out)", sub: "anchor. never existed." },
+      { label: "$97 (main price)", sub: "feels like a deal" },
+      { label: "$47 (exit popup)", sub: "feels like winning" },
+      { label: "All three wrong", sub: "same destination, different story" },
+    ],
+    annotation: "If you read module six and just realized there was a $47 option and you paid $97. you got got. sns lol.\n\njk.... kinda.... but for real Here's how the pricing works.\n\n$197 is the crossed out price. It's there because $200 for a course is not out of the question these days. It makes $97 feel reasonable by comparison. Maybe even like a deal.\n\n$97 is the real price. You paid it. Good call.\n\n$47 is the exit price. It shows up if you try to leave. Some people knew it was coming. Some people were genuinely surprised. Either way the button was always there.\n\nIf you paid $97 you felt like you saved a hundred dollars. If you paid $47 you feel like you got one over on the page. Both are fine. Both are accounted for. Thanks for being here.",
+  },
+  {
+    number: "09",
+    title: "THE EXIT",
+    technique: "The Dignified Retreat",
+    introCard: "You won.",
+    exhibit: {
+      label: "FROM THE PAGE — EXIT POPUP",
+      quote: "Wait. I noticed you leaving. I'm not offended. I'm offering you $47 for the course instead.",
+      nodded: null,
+    },
+    flow: [
+      { label: "You try to leave", sub: "popup fires" },
+      { label: "'I'm not offended'", sub: "no guilt, no pressure" },
+      { label: "Quiet reasonable offer", sub: "you feel like you negotiated" },
+      { label: "It worked on you", sub: "you felt smart doing it" },
+    ],
+    annotation: "'Wait.' One word. It's the only word on a landing page that stops a mid-exit because it sounds like a person, not a popup.\n\n'I'm not offended' is doing something specific. It's not guilting you. It's not escalating. No 'are you sure?' No 'you're going to miss out.' It just noticed you leaving and made a quiet, reasonable offer.\n\nSo you felt smart. You got a deal. It didn't work on you.\n\nIt worked on you.\n\nPS. For those of you who paid $97. Hi. Welcome to module nine. :)",
+  },
+  {
+    number: "10",
+    title: "THE CLOSE",
+    technique: "Give the Persuaded Person Somewhere to Click",
+    introCard: "You clicked. And then you paid.",
+    exhibit: {
+      label: "FROM THE PAGE — FINAL CTA",
+      quote: "Every course you ever saw or bought has led you here. You know enough. The rest is inside.",
+      nodded: null,
+    },
+    flow: [
+      { label: "No new argument", sub: "persuasion already happened" },
+      { label: "One true sentence", sub: "'every course led here'" },
+      { label: "Somewhere to click", sub: "that's all it needs" },
+      { label: "You clicked", sub: "the rest was inside" },
+    ],
+    annotation: "No new argument. No final pitch. One sentence and somewhere to click.\n\n'Every course you ever saw or bought has led you here.' It sounds deep. It's also just kind of true. Everything leads somewhere. This time it led here.\n\nYou clicked. You paid. The rest was inside.\n\nAnd now you're at the end. Maybe you apply this somewhere. Maybe you sell something. Maybe you make a couple bucks. Who knows. I mean you just bought a course on selling courses from a guy who's never sold or made a course in his life. I have no idea what that means for you but that guy does have your money now. Hopefully you're better for it.",
+  },
+];
+
+function Arrow() {
+  return <div style={{ color: YELLOW, fontSize: 16, margin: "0 4px", flexShrink: 0 }}>→</div>;
+}
+
+function FlowNode({ label, sub, highlight }) {
+  return (
+    <div style={{
+      background: highlight ? YELLOW : WHITE,
+      border: `1.5px solid ${highlight ? YELLOW : "#E0E0DC"}`,
+      borderRadius: 8, padding: "9px 13px", minWidth: 108, textAlign: "center",
+      boxShadow: highlight ? `0 3px 16px ${YELLOW}44` : "0 1px 4px #00000008",
+    }}>
+      <div style={{ fontFamily: "Georgia, serif", fontSize: 10.5, fontWeight: 700, color: DARK, lineHeight: 1.35, marginBottom: 3 }}>{label}</div>
+      <div style={{ fontFamily: "Georgia, serif", fontSize: 9, color: highlight ? "#555" : GRAY, fontStyle: "italic", lineHeight: 1.3 }}>{sub}</div>
+    </div>
+  );
+}
+
+function ProgressBar({ completed, total }) {
+  const pct = Math.round((completed / total) * 100);
+  return (
+    <div style={{ padding: "10px 28px", background: DARK, borderBottom: "1px solid #222" }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 6 }}>
+        <span style={{ color: GRAY, fontSize: 9, letterSpacing: 2, fontFamily: "monospace" }}>PROGRESS</span>
+        <span style={{ color: YELLOW, fontSize: 9, letterSpacing: 1, fontFamily: "monospace" }}>{completed}/{total} COMPLETE</span>
+      </div>
+      <div style={{ background: "#222", borderRadius: 4, height: 4, overflow: "hidden" }}>
+        <div style={{ height: "100%", background: YELLOW, borderRadius: 4, width: `${pct}%`, transition: "width 0.5s ease" }} />
+      </div>
+    </div>
+  );
+}
+
+function SidebarItem({ section, status, isActive, onClick }) {
+  const isLocked = status === "locked";
+  const isDone = status === "done";
+  return (
+    <div onClick={isLocked ? undefined : onClick} style={{
+      cursor: isLocked ? "not-allowed" : "pointer",
+      display: "flex", alignItems: "center", gap: 10,
+      padding: "9px 12px", borderRadius: 8, marginBottom: 4,
+      background: isActive ? "#FFFDE7" : "transparent",
+      border: `1.5px solid ${isActive ? YELLOW : "transparent"}`,
+      opacity: isLocked ? 0.38 : 1, transition: "all 0.15s",
+    }}>
+      <div style={{
+        width: 22, height: 22, borderRadius: "50%", flexShrink: 0,
+        background: isDone ? YELLOW : isActive ? DARK : "#E8E8E4",
+        display: "flex", alignItems: "center", justifyContent: "center",
+        fontSize: 9, fontWeight: 700,
+        color: isDone ? DARK : isActive ? YELLOW : GRAY,
+      }}>
+        {isDone ? "✓" : section.number}
+      </div>
+      <div>
+        <div style={{ fontFamily: "Georgia, serif", fontSize: 10.5, fontWeight: 700, color: isLocked ? GRAY : DARK }}>{section.title}</div>
+        <div style={{ fontFamily: "Georgia, serif", fontSize: 9, fontStyle: "italic", color: GRAY }}>
+          {isLocked ? "locked" : section.introCard.slice(0, 34) + "…"}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function ExhibitBlock({ exhibit }) {
+  const [showTooltip, setShowTooltip] = useState(false);
+  const parts = exhibit.nodded ? exhibit.quote.split(exhibit.nodded) : null;
+
+  return (
+    <div style={{
+      background: DARK, borderRadius: "0 10px 10px 0",
+      borderLeft: `4px solid ${YELLOW}`, padding: "16px 20px", marginBottom: 20,
+    }}>
+      <div style={{ fontSize: 7.5, letterSpacing: 2, color: YELLOW, marginBottom: 10, fontFamily: "monospace" }}>
+        {exhibit.label}
+      </div>
+      <div style={{ fontSize: 12, color: "#ddd", fontStyle: "italic", lineHeight: 1.75, whiteSpace: "pre-line" }}>
+        {parts ? (
+          <>
+            "{parts[0]}
+            <span
+              style={{
+                background: `${YELLOW}33`, borderBottom: `1.5px solid ${YELLOW}`,
+                color: WHITE, padding: "1px 3px", borderRadius: 2,
+                cursor: "default", position: "relative", display: "inline",
+              }}
+              onMouseEnter={() => setShowTooltip(true)}
+              onMouseLeave={() => setShowTooltip(false)}
+            >
+              {exhibit.nodded}
+              {showTooltip && (
+                <span style={{
+                  position: "absolute", bottom: "calc(100% + 6px)", left: "50%",
+                  transform: "translateX(-50%)",
+                  background: YELLOW, color: DARK,
+                  fontSize: 8, fontWeight: 700, padding: "3px 8px",
+                  borderRadius: 4, whiteSpace: "nowrap",
+                  fontFamily: "monospace", letterSpacing: 1,
+                  pointerEvents: "none", zIndex: 10,
+                }}>you nodded here</span>
+              )}
+            </span>
+            {parts[1]}"
+          </>
+        ) : (
+          `"${exhibit.quote}"`
+        )}
+      </div>
+    </div>
+  );
+}
+
+function CertificateScreen({ onBack }) {
+  return (
+    <div style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", padding: "40px 24px", background: LIGHT }}>
+      <div style={{
+        background: WHITE, border: `3px solid ${YELLOW}`, borderRadius: 16,
+        padding: "48px 56px", maxWidth: 540, width: "100%", textAlign: "center",
+        boxShadow: `0 8px 40px ${YELLOW}22`,
+      }}>
+        <div style={{ fontSize: 36, marginBottom: 16 }}>🦆</div>
+        <div style={{ fontSize: 9, letterSpacing: 3, color: GRAY, marginBottom: 12, fontFamily: "monospace" }}>THE POND  ·  CERTIFICATE OF COMPLETION</div>
+        <div style={{ width: 60, height: 2, background: YELLOW, margin: "0 auto 20px" }} />
+        <div style={{ fontFamily: "Georgia, serif", fontSize: 13, color: GRAY, marginBottom: 8, fontStyle: "italic" }}>This certifies that</div>
+        <div style={{ fontFamily: "Georgia, serif", fontSize: 22, fontWeight: 700, color: DARK, marginBottom: 8 }}>You</div>
+        <div style={{ fontFamily: "Georgia, serif", fontSize: 12, color: MID, lineHeight: 1.7, marginBottom: 24 }}>
+          have successfully completed<br />
+          <strong>How To Sell A Course About Selling Courses</strong><br />
+          and have demonstrated proficiency in<br />
+          <em>being sold a course about selling courses.</em>
+        </div>
+        <div style={{ width: 60, height: 2, background: YELLOW, margin: "0 auto 20px" }} />
+        <div style={{ fontFamily: "Georgia, serif", fontSize: 11, fontStyle: "italic", color: GRAY, marginBottom: 28 }}>
+          You now know how the room is arranged.<br />
+          If you want to build something of your own,<br />
+          you already know how this works.
+        </div>
+        <a href="https://thepond.live" target="_blank" rel="noopener noreferrer" style={{
+          display: "inline-block", background: YELLOW, color: DARK,
+          fontFamily: "Georgia, serif", fontSize: 11, fontWeight: 700,
+          padding: "12px 28px", borderRadius: 8, textDecoration: "none",
+          letterSpacing: 1, marginBottom: 12,
+        }}>Enter The Pond →</a>
+        <div style={{ fontSize: 9, color: GRAY, fontStyle: "italic", fontFamily: "Georgia, serif" }}>thepond.live</div>
+      </div>
+      <button onClick={onBack} style={{
+        marginTop: 20, background: "transparent", border: "none",
+        color: GRAY, fontSize: 11, cursor: "pointer", fontStyle: "italic", fontFamily: "Georgia, serif",
+      }}>← back to course</button>
+    </div>
+  );
+}
+
+export default function App() {
+  const total = sections.length;
+  const [statuses, setStatuses] = useState(() => sections.map((_, i) => i === 0 ? "active" : "locked"));
+  const [active, setActive] = useState(0);
+  const [showCert, setShowCert] = useState(false);
+  const [revealedAnnotations, setRevealedAnnotations] = useState({});
+
+  const completed = statuses.filter(s => s === "done").length;
+
+  const markComplete = () => {
+    const next = [...statuses];
+    next[active] = "done";
+    if (active + 1 < total) {
+      next[active + 1] = "active";
+      setStatuses(next);
+      setActive(active + 1);
+    } else {
+      setStatuses(next);
+      setShowCert(true);
+    }
+  };
+
+  const goTo = (i) => { if (statuses[i] !== "locked") setActive(i); };
+  const s = sections[active];
+  const isDone = statuses[active] === "done";
+  const isRevealed = revealedAnnotations[active];
+
+  const toggleReveal = () => {
+    setRevealedAnnotations(prev => ({ ...prev, [active]: !prev[active] }));
+  };
+
+  return (
+    <div style={{ fontFamily: "Georgia, serif", background: LIGHT, minHeight: "100vh", display: "flex", flexDirection: "column" }}>
+
+      <div style={{ background: DARK, padding: "14px 28px", display: "flex", alignItems: "center", gap: 14, borderBottom: `3px solid ${YELLOW}` }}>
+        <span style={{ color: YELLOW, fontSize: 22 }}>🦆</span>
+        <div>
+          <div style={{ color: WHITE, fontSize: 11, fontWeight: 700, letterSpacing: 1, fontFamily: "monospace" }}>HOW TO SELL A COURSE ABOUT SELLING COURSES</div>
+          <div style={{ color: GRAY, fontSize: 9, fontStyle: "italic" }}>The Annotated Edition  ·  The Pond</div>
+        </div>
+        {completed === total && (
+          <button onClick={() => setShowCert(true)} style={{
+            marginLeft: "auto", background: YELLOW, color: DARK, border: "none",
+            borderRadius: 6, padding: "7px 16px", fontSize: 9, fontWeight: 700,
+            cursor: "pointer", letterSpacing: 1, fontFamily: "monospace",
+          }}>VIEW CERTIFICATE →</button>
+        )}
+      </div>
+
+      <ProgressBar completed={completed} total={total} />
+
+      {showCert ? <CertificateScreen onBack={() => setShowCert(false)} /> : (
+        <div style={{ display: "flex", flex: 1, overflow: "hidden", minHeight: 0 }}>
+
+          <div style={{ width: 210, minWidth: 210, background: WHITE, borderRight: "1px solid #E8E8E4", padding: "16px 10px", overflowY: "auto" }}>
+            <div style={{ fontSize: 8, letterSpacing: 2, color: GRAY, marginBottom: 10, paddingLeft: 4, fontFamily: "monospace" }}>MODULES</div>
+            {sections.map((sec, i) => (
+              <SidebarItem key={i} section={sec} status={statuses[i]} isActive={active === i} onClick={() => goTo(i)} />
+            ))}
+          </div>
+
+          <div style={{ flex: 1, padding: "28px 36px", overflowY: "auto" }}>
+
+            <div style={{ marginBottom: 20 }}>
+              <div style={{ fontSize: 8, letterSpacing: 3, color: YELLOW, marginBottom: 6, fontFamily: "monospace" }}>
+                MODULE {s.number}  ·  {s.title}
+                {isDone && <span style={{ marginLeft: 10 }}>✓ COMPLETE</span>}
+              </div>
+              <div style={{ fontSize: 20, fontWeight: 700, color: DARK, lineHeight: 1.25 }}>{s.technique}</div>
+            </div>
+
+            <ExhibitBlock exhibit={s.exhibit} />
+
+            <div style={{ marginBottom: 20 }}>
+              <div style={{ fontSize: 8, letterSpacing: 2, color: GRAY, marginBottom: 12, fontFamily: "monospace" }}>HOW IT WORKS</div>
+              <div style={{
+                display: "flex", alignItems: "center", flexWrap: "wrap", gap: 6,
+                background: WHITE, border: "1px solid #E8E8E4", borderRadius: 12, padding: "18px 20px",
+              }}>
+                {s.flow.map((node, i) => (
+                  <div key={i} style={{ display: "flex", alignItems: "center" }}>
+                    <FlowNode label={node.label} sub={node.sub} highlight={i === s.flow.length - 1} />
+                    {i < s.flow.length - 1 && <Arrow />}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div style={{
+              background: WHITE, border: `1.5px solid ${YELLOW}`,
+              borderRadius: 10, padding: "14px 20px", marginBottom: 16,
+              display: "flex", alignItems: "center", gap: 12,
+            }}>
+              <span style={{ color: YELLOW, fontSize: 18, flexShrink: 0 }}>→</span>
+              <div style={{ fontFamily: "Georgia, serif", fontSize: 13, fontStyle: "italic", color: DARK, lineHeight: 1.5 }}>
+                {s.introCard}
+              </div>
+            </div>
+
+            <div style={{ marginBottom: 28 }}>
+              <button
+                onClick={toggleReveal}
+                style={{
+                  background: "transparent",
+                  border: `1px solid ${isRevealed ? GRAY : YELLOW}`,
+                  borderRadius: 7, padding: "9px 18px",
+                  fontSize: 10, fontWeight: 700, cursor: "pointer",
+                  letterSpacing: 1, fontFamily: "monospace",
+                  color: isRevealed ? GRAY : YELLOW,
+                  marginBottom: isRevealed ? 14 : 0,
+                  transition: "all 0.2s",
+                }}
+              >
+                {isRevealed ? "HIDE ANNOTATION ↑" : "SEE THE ANNOTATION →"}
+              </button>
+
+              {isRevealed && (
+                <div style={{
+                  background: "#FFFDE7", border: `1px solid ${YELLOW}`,
+                  borderRadius: "0 10px 10px 10px", padding: "18px 22px",
+                  fontFamily: "Georgia, serif", fontSize: 11.5, color: MID,
+                  lineHeight: 1.75, whiteSpace: "pre-line",
+                }}>
+                  {s.annotation}
+                </div>
+              )}
+            </div>
+
+            {!isDone && (
+              <button onClick={markComplete} style={{
+                background: YELLOW, color: DARK, border: "none", borderRadius: 9,
+                padding: "13px 30px", fontSize: 11, fontWeight: 700, cursor: "pointer",
+                letterSpacing: 1, fontFamily: "monospace", boxShadow: `0 4px 16px ${YELLOW}44`,
+              }}>
+                {active === total - 1 ? "COMPLETE COURSE →" : "MARK COMPLETE  →  NEXT MODULE"}
+              </button>
+            )}
+
+            {isDone && active < total - 1 && (
+              <button onClick={() => goTo(active + 1)} style={{
+                background: DARK, color: YELLOW, border: `1.5px solid ${YELLOW}`,
+                borderRadius: 9, padding: "13px 30px", fontSize: 11, fontWeight: 700,
+                cursor: "pointer", letterSpacing: 1, fontFamily: "monospace",
+              }}>NEXT MODULE →</button>
+            )}
+
+            {isDone && active === total - 1 && (
+              <button onClick={() => setShowCert(true)} style={{
+                background: YELLOW, color: DARK, border: "none", borderRadius: 9,
+                padding: "13px 30px", fontSize: 11, fontWeight: 700, cursor: "pointer",
+                letterSpacing: 1, fontFamily: "monospace", boxShadow: `0 4px 16px ${YELLOW}44`,
+              }}>VIEW YOUR CERTIFICATE →</button>
+            )}
+
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}

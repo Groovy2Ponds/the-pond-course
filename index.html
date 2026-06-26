@@ -278,6 +278,7 @@ function App() {
   const [active, setActive] = React.useState(0);
   const [showCert, setShowCert] = React.useState(false);
   const [revealedAnnotations, setRevealedAnnotations] = React.useState({});
+  const [drawerOpen, setDrawerOpen] = React.useState(false);
 
   const completed = statuses.filter(s => s === "done").length;
 
@@ -294,24 +295,26 @@ function App() {
     }
   };
 
-  const goTo = (i) => { if (statuses[i] !== "locked") setActive(i); };
+  const goTo = (i) => { if (statuses[i] !== "locked") { setActive(i); setDrawerOpen(false); } };
   const s = sections[active];
   const isDone = statuses[active] === "done";
   const isRevealed = revealedAnnotations[active];
   const toggleReveal = () => setRevealedAnnotations(prev => ({ ...prev, [active]: !prev[active] }));
 
+  const isMobile = window.innerWidth < 700;
+
   const headerEl = React.createElement('div', {
-    style: { background: DARK, padding: "14px 28px", display: "flex", alignItems: "center", gap: 14, borderBottom: `3px solid ${YELLOW}` }
+    style: { background: DARK, padding: "14px 20px", display: "flex", alignItems: "center", gap: 12, borderBottom: `3px solid ${YELLOW}`, flexShrink: 0 }
   },
-    React.createElement('span', { style: { color: YELLOW, fontSize: 22 } }, "🦆"),
-    React.createElement('div', null,
-      React.createElement('div', { style: { color: WHITE, fontSize: 11, fontWeight: 700, letterSpacing: 1, fontFamily: "monospace" } }, "HOW TO SELL A COURSE ABOUT SELLING COURSES"),
+    React.createElement('span', { style: { color: YELLOW, fontSize: 20 } }, "🦆"),
+    React.createElement('div', { style: { flex: 1, minWidth: 0 } },
+      React.createElement('div', { style: { color: WHITE, fontSize: 10, fontWeight: 700, letterSpacing: 1, fontFamily: "monospace", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" } }, "HOW TO SELL A COURSE ABOUT SELLING COURSES"),
       React.createElement('div', { style: { color: GRAY, fontSize: 9, fontStyle: "italic" } }, "The Annotated Edition  ·  The Pond")
     ),
     completed === total && React.createElement('button', {
       onClick: () => setShowCert(true),
-      style: { marginLeft: "auto", background: YELLOW, color: DARK, border: "none", borderRadius: 6, padding: "7px 16px", fontSize: 9, fontWeight: 700, cursor: "pointer", letterSpacing: 1, fontFamily: "monospace" }
-    }, "VIEW CERTIFICATE →")
+      style: { flexShrink: 0, background: YELLOW, color: DARK, border: "none", borderRadius: 6, padding: "7px 12px", fontSize: 9, fontWeight: 700, cursor: "pointer", letterSpacing: 1, fontFamily: "monospace" }
+    }, "CERTIFICATE →")
   );
 
   if (showCert) return React.createElement('div', { style: { minHeight: "100vh", display: "flex", flexDirection: "column" } },
@@ -319,17 +322,45 @@ function App() {
     React.createElement(CertificateScreen, { onBack: () => setShowCert(false) })
   );
 
-  const sidebar = React.createElement('div', {
-    style: { width: 210, minWidth: 210, background: WHITE, borderRight: "1px solid #E8E8E4", padding: "16px 10px", overflowY: "auto" }
+  // Desktop sidebar
+  const desktopSidebar = React.createElement('div', {
+    style: { width: 210, minWidth: 210, background: WHITE, borderRight: "1px solid #E8E8E4", padding: "16px 10px", overflowY: "auto", display: isMobile ? "none" : "block" }
   },
     React.createElement('div', { style: { fontSize: 8, letterSpacing: 2, color: GRAY, marginBottom: 10, paddingLeft: 4, fontFamily: "monospace" } }, "MODULES"),
+    sections.map((sec, i) => React.createElement(SidebarItem, { key: i, section: sec, status: statuses[i], isActive: active === i, onClick: () => goTo(i) }))
+  );
+
+  // Mobile drawer toggle button
+  const mobileDrawerBtn = isMobile && React.createElement('button', {
+    onClick: () => setDrawerOpen(!drawerOpen),
+    style: {
+      display: "flex", alignItems: "center", gap: 8,
+      background: "transparent", border: `1px solid ${drawerOpen ? YELLOW : "#E0E0DC"}`,
+      borderRadius: 7, padding: "8px 14px", marginBottom: 16,
+      fontSize: 9, fontWeight: 700, cursor: "pointer",
+      letterSpacing: 1, fontFamily: "monospace",
+      color: drawerOpen ? YELLOW : GRAY,
+    }
+  },
+    React.createElement('span', null, drawerOpen ? "✕ CLOSE" : "☰ MODULES"),
+    React.createElement('span', { style: { color: YELLOW, fontSize: 9 } }, `${active + 1}/10`)
+  );
+
+  // Mobile drawer
+  const mobileDrawer = isMobile && drawerOpen && React.createElement('div', {
+    style: {
+      background: WHITE, border: "1px solid #E8E8E4", borderRadius: 10,
+      padding: "12px 10px", marginBottom: 16,
+      boxShadow: "0 4px 20px rgba(0,0,0,0.08)"
+    }
+  },
     sections.map((sec, i) => React.createElement(SidebarItem, { key: i, section: sec, status: statuses[i], isActive: active === i, onClick: () => goTo(i) }))
   );
 
   const flowDiagram = React.createElement('div', { style: { marginBottom: 20 } },
     React.createElement('div', { style: { fontSize: 8, letterSpacing: 2, color: GRAY, marginBottom: 12, fontFamily: "monospace" } }, "HOW IT WORKS"),
     React.createElement('div', {
-      style: { display: "flex", alignItems: "center", flexWrap: "wrap", gap: 6, background: WHITE, border: "1px solid #E8E8E4", borderRadius: 12, padding: "18px 20px" }
+      style: { display: "flex", alignItems: "center", flexWrap: "wrap", gap: 6, background: WHITE, border: "1px solid #E8E8E4", borderRadius: 12, padding: "16px 16px" }
     },
       s.flow.map((node, i) => React.createElement('div', { key: i, style: { display: "flex", alignItems: "center" } },
         React.createElement(FlowNode, { label: node.label, sub: node.sub, highlight: i === s.flow.length - 1 }),
@@ -370,13 +401,15 @@ function App() {
         style: { background: YELLOW, color: DARK, border: "none", borderRadius: 9, padding: "13px 30px", fontSize: 11, fontWeight: 700, cursor: "pointer", letterSpacing: 1, fontFamily: "monospace", boxShadow: `0 4px 16px ${YELLOW}44` }
       }, "VIEW YOUR CERTIFICATE →");
 
-  const main = React.createElement('div', { style: { flex: 1, padding: "28px 36px", overflowY: "auto" } },
+  const main = React.createElement('div', { style: { flex: 1, padding: isMobile ? "20px 18px" : "28px 36px", overflowY: "auto" } },
+    mobileDrawerBtn,
+    mobileDrawer,
     React.createElement('div', { style: { marginBottom: 20 } },
       React.createElement('div', { style: { fontSize: 8, letterSpacing: 3, color: YELLOW, marginBottom: 6, fontFamily: "monospace" } },
         `MODULE ${s.number}  ·  ${s.title}`,
         isDone && React.createElement('span', { style: { marginLeft: 10 } }, "✓ COMPLETE")
       ),
-      React.createElement('div', { style: { fontSize: 20, fontWeight: 700, color: DARK, lineHeight: 1.25 } }, s.technique)
+      React.createElement('div', { style: { fontSize: isMobile ? 17 : 20, fontWeight: 700, color: DARK, lineHeight: 1.25 } }, s.technique)
     ),
     React.createElement(ExhibitBlock, { exhibit: s.exhibit }),
     flowDiagram,
@@ -388,7 +421,7 @@ function App() {
   return React.createElement('div', { style: { fontFamily: "Georgia, serif", background: LIGHT, minHeight: "100vh", display: "flex", flexDirection: "column" } },
     headerEl,
     React.createElement(ProgressBar, { completed, total }),
-    React.createElement('div', { style: { display: "flex", flex: 1, overflow: "hidden", minHeight: 0 } }, sidebar, main)
+    React.createElement('div', { style: { display: "flex", flex: 1, overflow: "hidden", minHeight: 0 } }, desktopSidebar, main)
   );
 }
 

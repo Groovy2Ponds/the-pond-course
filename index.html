@@ -306,7 +306,7 @@ function App() {
   const headerEl = React.createElement('div', {
     style: { background: DARK, padding: "14px 20px", display: "flex", alignItems: "center", gap: 12, borderBottom: `3px solid ${YELLOW}`, flexShrink: 0 }
   },
-    React.createElement('span', { style: { color: YELLOW, fontSize: 20 } }, "🦆"),
+    React.createElement('a', { href: "https://thepond.live", style: { color: YELLOW, fontSize: 20, textDecoration: "none" } }, "🦆"),
     React.createElement('div', { style: { flex: 1, minWidth: 0 } },
       React.createElement('div', { style: { color: WHITE, fontSize: 10, fontWeight: 700, letterSpacing: 1, fontFamily: "monospace", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" } }, "HOW TO SELL A COURSE ABOUT SELLING COURSES"),
       React.createElement('div', { style: { color: GRAY, fontSize: 9, fontStyle: "italic" } }, "The Annotated Edition  ·  The Pond")
